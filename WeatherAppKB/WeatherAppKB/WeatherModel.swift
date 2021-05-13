@@ -16,7 +16,7 @@ struct WeatherModel{
         }
     }
     
-    struct WeatherRecord: Identifiable{
+    struct WeatherRecord: Identifiable, Equatable{
         var id: UUID = UUID()
         var city: String
         var weather: String = "Clear"
@@ -26,8 +26,9 @@ struct WeatherModel{
         var windDir: Float = Float.random(in: 0.0..<360.0)
     }
     
-    func refresh(record: inout WeatherRecord){
-        record.temperature = Float.random(in: -20.0...40.0)
+    mutating func refresh(record: WeatherRecord){
+        //records.firstIndex(of: record) ?? 0
+        records[0].temperature = Float.random(in: -20.0...40.0)
         print("Record \(record) refreshed")
     }
 }

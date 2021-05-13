@@ -20,7 +20,7 @@ struct ContentView: View {
 
 struct WeatherRecordView: View{
     var record: WeatherModel.WeatherRecord
-    var viewModel: WeatherViewModel
+    @ObservedObject var viewModel: WeatherViewModel
     var body: some View{
         ZStack{
             RoundedRectangle(cornerRadius: /*@START_MENU_TOKEN@*/25.0/*@END_MENU_TOKEN@*/).stroke()
