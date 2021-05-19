@@ -26,12 +26,12 @@ struct WeatherRecordView: View{
     @State var param = 0
     var body: some View{
         ZStack{
-            RoundedRectangle(cornerRadius: CGFloat(viewModel.cornerRadius)).stroke().frame(height:CGFloat(viewModel.height)) // wysokoś komórek ustalona parametrem
+            RoundedRectangle(cornerRadius: CGFloat(viewModel.cornerRadius)).stroke().frame(height:CGFloat(viewModel.height)) // wysokość komórek ustalona parametrem
             HStack{
                 if(record.weather == "Clear"){
                     GeometryReader{ geometry in
                         Text("☀️").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
-                    }// GeometryReader odpowiada za dostosowanie wielkości ikonki względem wysokości komórki, a alignment: .leading wyrównuje do lewej strony
+                    }// GeometryReader odpowiada za dostosowanie wielkości ikonki względem wysokości, a alignment: .leading wyrównuje do lewej strony
                 }
                 else if(record.weather == "LightCloud"){
                     GeometryReader{ geometry in
@@ -80,7 +80,7 @@ struct WeatherRecordView: View{
                             param = 0
                         }
                     }
-                }.layoutPriority(viewModel.layoutPriority).frame(width: CGFloat(viewModel.cityWidth), alignment: .leading)// ta linijka na celu ma wyrównanie wszystkich komórek; layoutPriority sprawia, że VStack jest w naszej komórce najważniejszy, a width i alignment zapewniają, że po zmianie parametru VStack nie będzie się przesuwa, dzięki czemu komórki będą równe
+                }.layoutPriority(viewModel.layoutPriority).frame(width: CGFloat(viewModel.cityWidth), alignment: .leading)//ta linijka na celu ma wyrównanie wszystkich komórek; layoutPriority sprawia, że VStack jest w naszej komórce najważniejszy, a width i alignment zapewniają, że po zmianie parametru VStack nie będzie się przesuwać, dzięki czemu komórki będą równe
                 Text("🔄").font(.largeTitle).frame(alignment: .trailing).onTapGesture { //alignment: .trailing wyrównuje do prawej strony
                     viewModel.refresh(record:record)
                 }
