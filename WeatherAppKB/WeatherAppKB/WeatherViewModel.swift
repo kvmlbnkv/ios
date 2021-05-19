@@ -13,6 +13,8 @@ class WeatherViewModel: ObservableObject{
     let height: Int = 80
     let cornerRadius: Float = 25.0
     let weatherSize: Float = 0.8
+    let layoutPriority: Double = 100
+    let cityWidth: Float = 150
     
     var records: Array<WeatherModel.WeatherRecord>{
         model.records

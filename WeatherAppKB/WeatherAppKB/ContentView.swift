@@ -10,7 +10,7 @@ import SwiftUI
 struct ContentView: View {
     @ObservedObject var viewModel: WeatherViewModel
     var body: some View {
-        ScrollView(.vertical){
+        ScrollView(.vertical){ //przewijanie listy miast
             VStack {
                 ForEach(viewModel.records){record in
                     WeatherRecordView(record:record, viewModel:viewModel)
@@ -26,12 +26,12 @@ struct WeatherRecordView: View{
     @State var param = 0
     var body: some View{
         ZStack{
-            RoundedRectangle(cornerRadius: CGFloat(viewModel.cornerRadius)).stroke().frame(height:CGFloat(viewModel.height))
+            RoundedRectangle(cornerRadius: CGFloat(viewModel.cornerRadius)).stroke().frame(height:CGFloat(viewModel.height)) // wysokoś komórek ustalona parametrem
             HStack{
                 if(record.weather == "Clear"){
                     GeometryReader{ geometry in
                         Text("☀️").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
-                    }
+                    }// GeometryReader odpowiada za dostosowanie wielkości ikonki względem wysokości komórki, a alignment: .leading wyrównuje do lewej strony
                 }
                 else if(record.weather == "LightCloud"){
                     GeometryReader{ geometry in
@@ -63,7 +63,7 @@ struct WeatherRecordView: View{
                         Text("🌨").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
                 }
-                VStack(alignment: .leading){
+                VStack(alignment: .leading){ //nazwa miasta i parametr wyrównane względem siebie do lewej strony
                     Text(record.city)
                     if(param == 0){
                         Text("Temperature:\(record.temperature,specifier: "%.1f")ºC").font(.caption).onTapGesture {
@@ -80,8 +80,8 @@ struct WeatherRecordView: View{
                             param = 0
                         }
                     }
-                }.layoutPriority(100)
-                Text("🔄").font(.largeTitle).frame(alignment: .trailing).onTapGesture {
+                }.layoutPriority(viewModel.layoutPriority).frame(width: CGFloat(viewModel.cityWidth), alignment: .leading)// ta linijka na celu ma wyrównanie wszystkich komórek; layoutPriority sprawia, że VStack jest w naszej komórce najważniejszy, a width i alignment zapewniają, że po zmianie parametru VStack nie będzie się przesuwa, dzięki czemu komórki będą równe
+                Text("🔄").font(.largeTitle).frame(alignment: .trailing).onTapGesture { //alignment: .trailing wyrównuje do prawej strony
                     viewModel.refresh(record:record)
                 }
             }
