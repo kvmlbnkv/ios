@@ -6,7 +6,8 @@
 //
 
 import SwiftUI
-
+import MapKit
+import CoreLocation
 struct ContentView: View {
     @ObservedObject var viewModel: WeatherViewModel
     var body: some View {
@@ -24,6 +25,9 @@ struct WeatherRecordView: View{
     var record: WeatherModel.WeatherRecord
     var viewModel: WeatherViewModel
     @State var param = 0
+    @State var region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude:50, longitude:20), span: MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0))
+    @State private var places: [Place] = [Place(coordinate: .init(latitude:50,longitude:20))]
+    @State var sheetview = false
     var body: some View{
         ZStack{
             RoundedRectangle(cornerRadius: CGFloat(viewModel.cornerRadius)).stroke().frame(height:CGFloat(viewModel.height)) // wysokość komórek ustalona parametrem
@@ -33,12 +37,12 @@ struct WeatherRecordView: View{
                         Text("☀️").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }// GeometryReader odpowiada za dostosowanie wielkości ikonki względem wysokości, a alignment: .leading wyrównuje do lewej strony
                 }
-                else if(record.weather == "LightCloud"){
+                else if(record.weather == "Light Cloud"){
                     GeometryReader{ geometry in
                         Text("⛅️").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
                 }
-                else if(record.weather == "HeavyCloud"){
+                else if(record.weather == "Heavy Cloud"){
                     GeometryReader{ geometry in
                         Text("☁️").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
@@ -48,7 +52,12 @@ struct WeatherRecordView: View{
                         Text("🌦").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
                 }
-                else if(record.weather == "Rain"){
+                else if(record.weather == "Light Rain"){
+                    GeometryReader{ geometry in
+                        Text("🌧").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
+                    }
+                }
+                else if(record.weather == "Heavy Rain"){
                     GeometryReader{ geometry in
                         Text("🌧").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
@@ -56,6 +65,11 @@ struct WeatherRecordView: View{
                 else if(record.weather == "Thunderstorm"){
                     GeometryReader{ geometry in
                         Text("⛈").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
+                    }
+                }
+                else if(record.weather == "Hail"){
+                    GeometryReader{ geometry in
+                        Text("🌨").font(.system(size: CGFloat(viewModel.weatherSize)*geometry.size.height)).frame(alignment: .leading)
                     }
                 }
                 else if(record.weather == "Snow"){
@@ -81,12 +95,26 @@ struct WeatherRecordView: View{
                         }
                     }
                 }.layoutPriority(viewModel.layoutPriority).frame(width: CGFloat(viewModel.cityWidth), alignment: .leading)//ta linijka na celu ma wyrównanie wszystkich komórek; layoutPriority sprawia, że VStack jest w naszej komórce najważniejszy, a width i alignment zapewniają, że po zmianie parametru VStack nie będzie się przesuwać, dzięki czemu komórki będą równe
-                Text("🔄").font(.largeTitle).frame(alignment: .trailing).onTapGesture { //alignment: .trailing wyrównuje do prawej strony
-                    viewModel.refresh(record:record)
-                }
+                VStack(){
+                    Text("🔄").font(.largeTitle).onTapGesture { //alignment: .trailing wyrównuje do prawej strony
+                        viewModel.fetchWeather(record:record)
+                    }
+                    Text("🗺").font(.largeTitle).onTapGesture {
+                        region = MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: record.latitude, longitude: record.longitude), span: MKCoordinateSpan(latitudeDelta: 1.0, longitudeDelta: 1.0))
+                        sheetview = true
+                    }.sheet(isPresented: $sheetview, content:{Map(coordinateRegion: $region, annotationItems:[Place(coordinate: .init(latitude: record.latitude, longitude: record.longitude))]){
+                        place in MapPin(coordinate: place.coordinate)
+                    }.padding()})
+                }.frame(alignment: .trailing)
+                
             }
         }
     }
+}
+
+struct Place: Identifiable{
+    let id = UUID()
+    let coordinate: CLLocationCoordinate2D
 }
 
 func Direction(windDir: Float) -> String{
