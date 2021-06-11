@@ -18,7 +18,7 @@ class WeatherViewModel: NSObject, ObservableObject, CLLocationManagerDelegate{
     let cornerRadius: Float = 25.0
     let weatherSize: Float = 0.8
     let layoutPriority: Double = 100
-    let cityWidth: Float = 150
+    let cityWidth: Float = 130
     var fetcher: MetaWeatherFetcher
     var locFetcher: MetaWeatherLocationFetcher
     var cancellables: Set<AnyCancellable> = []

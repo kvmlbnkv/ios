@@ -11,12 +11,14 @@ import CoreLocation
 struct ContentView: View {
     @ObservedObject var viewModel: WeatherViewModel
     var body: some View {
-        ScrollView(.vertical){ //przewijanie listy miast
-            VStack {
-                ForEach(viewModel.records){record in
-                    WeatherRecordView(record:record, viewModel:viewModel)
-                }
-            }.padding()
+        NavigationView(){
+            ScrollView(.vertical){ //przewijanie listy miast
+                VStack {
+                    ForEach(viewModel.records){record in
+                        WeatherRecordView(record:record, viewModel:viewModel)
+                    }
+                }.padding()
+            }.navigationBarTitle("WeatherAppKB")
         }
     }
 }
@@ -85,12 +87,12 @@ struct WeatherRecordView: View{
                         }
                     }
                     else if(param == 1){
-                        Text("Humidity:\(record.humidity,specifier: "%.1f")hPa").font(.caption).onTapGesture {
+                        Text("Humidity:\(record.humidity,specifier: "%.1f")%").font(.caption).onTapGesture {
                             param = 2
                         }
                     }
                     else if(param == 2){
-                        Text("Wind:\(record.windSpeed,specifier: "%.1f")km/h \(Direction(windDir: record.windDir))").font(.caption).onTapGesture {
+                        Text("Wind:\(record.windSpeed,specifier: "%.1f")mph \(Direction(windDir: record.windDir))").font(.caption).onTapGesture {
                             param = 0
                         }
                     }
@@ -106,7 +108,9 @@ struct WeatherRecordView: View{
                         place in MapPin(coordinate: place.coordinate)
                     }.padding()})
                 }.frame(alignment: .trailing)
-                
+                NavigationLink(destination: DetailsView(record: record)){
+                    Text("🔍").font(.largeTitle)
+                }
             }
         }
     }

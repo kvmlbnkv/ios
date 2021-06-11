@@ -22,6 +22,9 @@ struct WeatherModel{
         var latitude: Double = 0.0
         var longitude: Double = 0.0
         var woeId: String
+        var pressure: Float = 0.0
+        var visibility: Float = 0.0
+        var predictability: Int = 0
         var weather: String = ["Clear", "Light Cloud", "Heavy Cloud", "Showers", "Light Rain", "Heavy Rain", "Thunderstorm", "Hail", "Snow"].randomElement() ?? "Clear"
         var temperature: Float = Float.random(in: -20.0...40.0)
         var humidity: Float = Float.random(in: 0.0...100.0)
@@ -48,7 +51,7 @@ struct WeatherModel{
         else{
             records[recordId].city = response.title
         }
-        let lattLong = response.lattLong.components(separatedBy: ",")
+        let lattLong = response.lattLong.replacingOccurrences(of: " ", with: "").components(separatedBy: ",")
         records[recordId].latitude = Double(lattLong[0])!
         records[recordId].longitude = Double(lattLong[1])!
         records[recordId].weather = response.consolidatedWeather[0].weatherStateName
@@ -56,5 +59,8 @@ struct WeatherModel{
         records[recordId].humidity = Float(response.consolidatedWeather[0].humidity)
         records[recordId].windSpeed = Float(response.consolidatedWeather[0].windSpeed)
         records[recordId].windDir = Float(response.consolidatedWeather[0].windDirection)
+        records[recordId].pressure = Float(response.consolidatedWeather[0].airPressure)
+        records[recordId].visibility = Float(response.consolidatedWeather[0].visibility)
+        records[recordId].predictability = Int(response.consolidatedWeather[0].predictability)
     }
 }

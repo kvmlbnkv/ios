@@ -11,6 +11,7 @@
 		AC304B28267125A7005AE642 /* MetaWeatherResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC304B27267125A7005AE642 /* MetaWeatherResponse.swift */; };
 		AC304B2C26715F84005AE642 /* MetaWeatherLocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC304B2B26715F84005AE642 /* MetaWeatherLocationFetcher.swift */; };
 		AC304B2F267160DD005AE642 /* MetaWeatherLocationResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC304B2E267160DD005AE642 /* MetaWeatherLocationResponse.swift */; };
+		ACA0E7892673F5D70077B771 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA0E7882673F5D70077B771 /* DetailsView.swift */; };
 		ACA925752643D60000BFA0B5 /* WeatherAppKBApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA925742643D60000BFA0B5 /* WeatherAppKBApp.swift */; };
 		ACA925772643D60000BFA0B5 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACA925762643D60000BFA0B5 /* ContentView.swift */; };
 		ACA925792643D60300BFA0B5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ACA925782643D60300BFA0B5 /* Assets.xcassets */; };
@@ -24,6 +25,7 @@
 		AC304B27267125A7005AE642 /* MetaWeatherResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaWeatherResponse.swift; sourceTree = "<group>"; };
 		AC304B2B26715F84005AE642 /* MetaWeatherLocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaWeatherLocationFetcher.swift; sourceTree = "<group>"; };
 		AC304B2E267160DD005AE642 /* MetaWeatherLocationResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetaWeatherLocationResponse.swift; sourceTree = "<group>"; };
+		ACA0E7882673F5D70077B771 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		ACA925712643D60000BFA0B5 /* WeatherAppKB.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherAppKB.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		ACA925742643D60000BFA0B5 /* WeatherAppKBApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherAppKBApp.swift; sourceTree = "<group>"; };
 		ACA925762643D60000BFA0B5 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 			children = (
 				ACA925742643D60000BFA0B5 /* WeatherAppKBApp.swift */,
 				ACA925762643D60000BFA0B5 /* ContentView.swift */,
+				ACA0E7882673F5D70077B771 /* DetailsView.swift */,
 				ACA925842643D70700BFA0B5 /* WeatherModel.swift */,
 				ACA925872643D83800BFA0B5 /* WeatherViewModel.swift */,
 				AC304B2426711EB6005AE642 /* MetaWeatherFetcher.swift */,
@@ -158,6 +161,7 @@
 			files = (
 				AC304B2C26715F84005AE642 /* MetaWeatherLocationFetcher.swift in Sources */,
 				AC304B2F267160DD005AE642 /* MetaWeatherLocationResponse.swift in Sources */,
+				ACA0E7892673F5D70077B771 /* DetailsView.swift in Sources */,
 				ACA925772643D60000BFA0B5 /* ContentView.swift in Sources */,
 				ACA925882643D83800BFA0B5 /* WeatherViewModel.swift in Sources */,
 				AC304B28267125A7005AE642 /* MetaWeatherResponse.swift in Sources */,
